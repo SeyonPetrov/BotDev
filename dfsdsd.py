@@ -33,7 +33,8 @@ def markup_menu(for_buttons):
 
 @bot.message_handler(['menu'])
 def menu(message):
-    buts = [['ШУТКА', 'callback', 'ШУТКА']]
+    buts = [['ШУТКА', 'callback', 'ШУТКА'],
+            ['Точки', 'callback', 'points']]
     bot.send_message(message.chat.id,
                      'Привет, сладкий!',
                      reply_markup=markup_menu(buts))
@@ -43,6 +44,8 @@ def menu(message):
 def joke(callback):
     if callback.data == 'ШУТКА':
         bot.send_message(callback.message.chat.id, anecAPI.random_joke())
+    elif callback.data == 'points':
+        bot.send_message(callback.message.chat.id, open('file.txt', 'r', encoding='utf8').read())
 
 
 bot.polling(none_stop=True, interval=0)
